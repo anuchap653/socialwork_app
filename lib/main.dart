@@ -3,6 +3,7 @@ import 'package:account/provider/transactionProvider.dart';
 import 'package:flutter/material.dart';
 import 'formScreen.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -52,25 +52,30 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.add),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return FormScreen();
+                  return const FormScreen();
                 }));
               },
             ),
           ],
         ),
-        body: Consumer(
-          builder: (context, TransactionProvider provider, Widget? child) {
+        body: Consumer<TransactionProvider>(
+          builder: (context, provider, child) {
             return ListView.builder(
                 itemCount: provider.transactions.length,
                 itemBuilder: (context, int index) {
                   Transaction data = provider.transactions[index];
+
+                  // Format date and time without seconds
+                  String formattedDate =
+                      DateFormat('yyyy-MM-dd HH:mm').format(data.dateTime);
+
                   return Card(
                     elevation: 3,
                     margin:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: ListTile(
                       title: Text(data.title),
-                      subtitle: Text('วันที่บันทึกข้อมูล'),
+                      subtitle: Text('วันที่บันทึก: $formattedDate'),
                       leading: CircleAvatar(
                         child: FittedBox(
                           child: Text(data.amount.toString()),
