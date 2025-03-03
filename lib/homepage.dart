@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:account/model/social_work.dart';
-import 'package:account/provider/social_work_provider.dart';
+import 'package:socailworkapp/model/social_work.dart';
+import 'package:socailworkapp/provider/social_work_provider.dart';
 import 'add_page.dart';
 
 void main() {
